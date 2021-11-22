@@ -90,7 +90,8 @@
             let perc=document.getElementById('tip_percentage').value;
             if(Amount.length==0 || perc.length==0){
                 document.getElementById('tip_amount').value='';
-                document.getElementById('total_amount').value='';    
+                document.getElementById('total_amount').value='';
+                return;
             }
             let tip = (Amount*(perc/100)).toFixed(2);
             let total=Number(Amount)+Number(tip);
