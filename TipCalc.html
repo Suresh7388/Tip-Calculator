@@ -73,13 +73,27 @@
         </div>
     </main>
     <script>
+        function imposeMinMax(el){
+        if(el.value != ""){
+            if(parseInt(el.value) < parseInt(el.min)){
+                el.value = el.min;
+            }
+            if(parseInt(el.value) > parseInt(el.max)){
+                el.value = el.max;
+            }
+        }
+    }
         const tipcal=()=>{
             let Amount=document.getElementById('bill_amount').value;
             let perc=document.getElementById('tip_percentage').value;
-            let tip = Amount*(perc/100);
+            if(Amount.length==0 || perc.length==0){
+                document.getElementById('tip_amount').value='';
+                document.getElementById('total_amount').value='';    
+            }
+            let tip = (Amount*(perc/100)).toFixed(2);
             let total=Number(Amount)+Number(tip);
             document.getElementById('tip_amount').value=tip;
-            document.getElementById('total_amount').value=total;
+            document.getElementById('total_amount').value=total.toFixed(2);
         }
     </script>
 </body>
