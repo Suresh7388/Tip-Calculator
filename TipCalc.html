@@ -61,14 +61,16 @@
     <main>
         <h1>Tip Calculator</h1>
         <div>
+            <form method="post">
             <label>Bill Amount</label>
-            <input name="" type="number" id="bill_amount">
+            <input name="" type="text" maxlength="7" id="bill_amount" onkeypress="return event.charCode>=48 && event.charCode<=57">
             <label>Tip Percentage</label>
-            <input name="" type="number" id="tip_percentage">
+            <input name="" type="text" min="0" max="100" onkeyup="imposeMinMax(this)" id="tip_percentage" onkeypress="return event.charCode>=48 && event.charCode<=57">
             <label>Tip Amount</label>
             <input name="" type="text" id="tip_amount" disabled>
             <label>Total Amount</label>
             <input name="" type="text" id="total_amount" disabled>
+            </form>
             <button onclick="tipcal()">Calculate</button>
         </div>
     </main>
