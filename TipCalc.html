@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tip Calculator</title>
+    <title>Document</title>
     <style>
         * {
             padding: 0;
@@ -27,6 +27,9 @@
             height: auto;
             box-shadow: 1px 1px 15px 3px black;
             padding: 50px;
+        }
+        main div form {
+            line-height: 25px;
         }
         h1 {
             margin-bottom: 10px;
@@ -63,9 +66,9 @@
         <div>
             <form method="post">
             <label>Bill Amount</label>
-            <input name="" type="text" maxlength="7" id="bill_amount" onkeypress="return event.charCode>=48 && event.charCode<=57">
+            <input placeholder="Enter the bill amount" type="text" maxlength="15" id="bill_amount"onkeyup="return validate(this)" onkeypress="return isNumberKey(event)">
             <label>Tip Percentage</label>
-            <input name="" type="text" min="0" max="100" onkeyup="imposeMinMax(this)" id="tip_percentage" onkeypress="return event.charCode>=48 && event.charCode<=57">
+            <input placeholder="Enter tip percentage" type="text" maxlength="5" min="1" max="100" onkeyup="return imposeMinMax(this)" id="tip_percentage" onkeypress="return isNumberKey(event)">
             <label>Tip Amount</label>
             <input name="" type="text" id="tip_amount" disabled>
             <label>Total Amount</label>
@@ -75,7 +78,7 @@
         </div>
     </main>
     <script>
-        function imposeMinMax(el){
+    function imposeMinMax(el){
         if(el.value != ""){
             if(parseInt(el.value) < parseInt(el.min)){
                 el.value = el.min;
@@ -85,13 +88,27 @@
             }
         }
     }
+    var validate = function(e) {
+        var t = e.value;
+        e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+    }
+        function isNumberKey(evt)
+        {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode != 46 && charCode > 31 
+            && (charCode < 48 || charCode > 57))
+            return false;
+
+            return true;
+        }
         const tipcal=()=>{
             let Amount=document.getElementById('bill_amount').value;
             let perc=document.getElementById('tip_percentage').value;
             if(Amount.length==0 || perc.length==0){
                 document.getElementById('tip_amount').value='';
-                document.getElementById('total_amount').value='';
-                return;
+                document.getElementById('total_amount').value='';  
+                alert('Please fill required input');
+                return;  
             }
             let tip = (Amount*(perc/100)).toFixed(2);
             let total=Number(Amount)+Number(tip);
